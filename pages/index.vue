@@ -1,16 +1,16 @@
 <template>
   <div class="bg-secondary-100">
-    <AnnouncementBar />
-    <NavBar class="sticky top-0" />
-    <HeroSection />
-    <Footer />
+    <announcement-bar />
+    <nav-bar class="sticky top-0" />
+    <hero-section />
+    <footer-section />
   </div>
 </template>
 
 <script>
 import AnnouncementBar from '../components/home-component/AnnouncementBar.vue'
 import NavBar from '../components/home-component/NavBar.vue'
-import Footer from '../components/home-component/Footer.vue'
+import FooterSection from '../components/home-component/FooterSection.vue'
 import HeroSection from '../components/home-component/HeroSection.vue'
 
 export default {
@@ -19,7 +19,7 @@ export default {
     AnnouncementBar,
     NavBar,
     HeroSection,
-    Footer,
+    FooterSection,
   },
 }
 </script>
