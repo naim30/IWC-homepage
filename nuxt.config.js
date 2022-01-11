@@ -38,6 +38,12 @@ export default {
         crossorigin: 'anonymous',
       },
     ],
+
+    script: [
+      {
+        src: 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

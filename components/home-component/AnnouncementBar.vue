@@ -11,5 +11,3 @@ export default {
   name: 'AnnouncementBar',
 }
 </script>
-
-<style></style>

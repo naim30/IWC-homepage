@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="text-white flex justify-center h-20 items-center bg-secondary-200 font-poppins"
+    class="text-white flex justify-center h-20 items-center bg-secondary-200 font-poppins mt-24"
   >
     <h5 class="text-xl pr-3">Follow us on</h5>
     <ul class="flex space-x-5 text-xl items-center">
