@@ -1,9 +1,13 @@
 <template>
   <div class="bg-secondary-100">
     <announcement-bar />
+
     <nav-bar class="sticky top-0" />
+
     <hero-section />
+
     <search-section />
+
     <footer-section />
   </div>
 </template>
