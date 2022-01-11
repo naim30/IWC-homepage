@@ -4,25 +4,28 @@
   >
     <section
       ref="tags"
-      class="flex overflow-x-scroll w-full scrollbar-hide my-9"
+      :class="[
+        'flex overflow-x-scroll w-full scrollbar-hide my-9',
+        $style.scrollSmooth,
+      ]"
     >
       <button
         :class="[
-          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -left-5 -mt-3',
+          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -left-5 -mt-3 text-white hover:text-primary-100',
           scrollLeft > 0 ? 'hidden sm:inline-block' : 'hidden',
         ]"
         @click="onScrollLeft"
       >
-        <i class="fas fa-chevron-left text-white pl-3"></i>
+        <i class="fas fa-chevron-left pl-3"></i>
       </button>
       <button
         :class="[
-          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -right-5 -mt-3',
-          scrollLeft < maxWidth ? 'hidden sm:inline-block' : 'hidden',
+          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -right-5 -mt-3 text-white hover:text-primary-100',
+          scrollLeft < maxScrollWidth ? 'hidden sm:inline-block' : 'hidden',
         ]"
         @click="onScrollRight"
       >
-        <i class="fas fa-chevron-right text-white pr-3"></i>
+        <i class="fas fa-chevron-right pr-3"></i>
       </button>
       <button
         v-for="(tag, i) in tags"
@@ -94,16 +97,13 @@ export default {
         { name: 'Vue.js', selected: false },
       ],
       scrollLeft: 0,
-      maxWidth: 0,
+      maxScrollWidth: Infinity,
     }
   },
   created() {
     axios.get('https://randomuser.me/api/?results=40').then((response) => {
       this.users = response.data.results
     })
-  },
-  mounted() {
-    this.maxWidth = this.$refs.tags.offsetWidth
   },
   methods: {
     tagUsers(index) {
@@ -121,21 +121,26 @@ export default {
       })
     },
     onScrollLeft() {
-      this.$refs.tags.style.scrollBehavior = 'smooth'
       this.$refs.tags.scrollLeft = this.scrollLeft - 200
       this.scrollLeft = this.scrollLeft - 200 < 0 ? 0 : this.scrollLeft - 200
     },
 
     onScrollRight() {
-      this.$refs.tags.style.scrollBehavior = 'smooth'
+      this.maxScrollWidth =
+        this.$refs.tags.scrollWidth - this.$refs.tags.clientWidth
+
       this.$refs.tags.scrollLeft = this.scrollLeft + 200
       this.scrollLeft =
-        this.maxWidth > this.scrollLeft + 200
+        this.maxScrollWidth > this.scrollLeft + 200
           ? this.scrollLeft + 200
-          : this.maxWidth
+          : this.maxScrollWidth
     },
   },
 }
 </script>
 
-<style lang="css" module></style>
+<style lang="css" module>
+.scrollSmooth {
+  scroll-behavior: smooth;
+}
+</style>
