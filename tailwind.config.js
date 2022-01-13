@@ -18,7 +18,9 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
       },
       gridTemplateColumns: {
-        'auto-fit': 'repeat(auto-fit, minmax(290px, 290px))',
+        'auto-fit-sm': 'repeat(auto-fit, minmax(300px, 300px))',
+        'auto-fit-lg': 'repeat(auto-fit, minmax(290px, 290px))',
+        'auto-fit-xl': 'repeat(auto-fit, minmax(310px, 310px))',
       },
     },
   },

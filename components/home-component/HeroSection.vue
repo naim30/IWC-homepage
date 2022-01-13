@@ -14,6 +14,7 @@
       Lets Make This
       <span class="text-primary-100">Developers Directory</span> Better Togather
     </section>
+
     <lottie-player
       :class="['mt-10 mb-3 w-full max-w-md', $style.animation]"
       src="https://assets8.lottiefiles.com/packages/lf20_u5nd9awf.json"
