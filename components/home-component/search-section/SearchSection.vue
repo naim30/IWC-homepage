@@ -2,46 +2,13 @@
   <div
     class="border-t border-secondary-200 flex flex-col items-center relative overflow-x-hidden"
   >
+    <search-bar @searchUser="searchUser" />
+
+    <search-component :tags="tags" @tagUsers="tagUsers" />
+
     <section
-      ref="tags"
-      :class="[
-        'flex overflow-x-scroll w-full scrollbar-hide my-9',
-        $style.scrollSmooth,
-      ]"
+      class="grid grid-cols-auto-fit-sm sm:grid-cols-auto-fit-lg lg:grid-cols-auto-fit-xl gap-5 w-full justify-center"
     >
-      <button
-        :class="[
-          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -left-5 -mt-3 text-white hover:text-primary-100',
-          scrollLeft > 0 ? 'hidden sm:inline-block' : 'hidden',
-        ]"
-        @click="onScrollLeft"
-      >
-        <i class="fas fa-chevron-left pl-3"></i>
-      </button>
-      <button
-        :class="[
-          'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -right-5 -mt-3 text-white hover:text-primary-100',
-          scrollLeft < maxScrollWidth ? 'hidden sm:inline-block' : 'hidden',
-        ]"
-        @click="onScrollRight"
-      >
-        <i class="fas fa-chevron-right pr-3"></i>
-      </button>
-      <button
-        v-for="(tag, i) in tags"
-        :key="i"
-        :class="[
-          'px-3 py-2 mx-2 whitespace-nowrap rounded-lg font-poppins border border-secondary-300 text-white',
-          tag.selected
-            ? 'bg-primary-100 hover:bg-primary-100'
-            : 'bg-secondary-200 hover:bg-secondary-300',
-        ]"
-        @click="tagUsers(i)"
-      >
-        {{ tag.name }}
-      </button>
-    </section>
-    <section class="grid grid-cols-auto-fit gap-5 w-full justify-center">
       <user-card
         v-for="user in users"
         :key="user.login.uuid"
@@ -50,6 +17,7 @@
         :location="user.location.city"
       />
     </section>
+
     <button
       class="font-poppins text-white border border-white w-80 py-2 rounded-lg mt-12 hover:text-secondary-100 hover:bg-white lg:w-auto lg:px-44"
       @click="loadUsers"
@@ -61,15 +29,22 @@
 
 <script>
 import axios from 'axios'
+import Fuse from 'fuse.js'
+
 import UserCard from './UserCard.vue'
+import SearchComponent from './ScrollComponent.vue'
+import SearchBar from './SearchBar.vue'
 
 export default {
   name: 'SearchSection',
   components: {
     UserCard,
+    SearchComponent,
+    SearchBar,
   },
   data() {
     return {
+      allUsers: [],
       users: [],
       tags: [
         { name: 'Android', selected: false },
@@ -84,7 +59,7 @@ export default {
         { name: 'Go Lang', selected: false },
         { name: 'GraphQL', selected: false },
         { name: 'Java', selected: false },
-        { name: 'javaScript', selected: false },
+        { name: 'JavaScript', selected: false },
         { name: 'Laravel', selected: false },
         { name: 'MongoDB', selected: false },
         { name: 'Node.js', selected: false },
@@ -96,15 +71,21 @@ export default {
         { name: 'React Native', selected: false },
         { name: 'Vue.js', selected: false },
       ],
-      scrollLeft: 0,
-      maxScrollWidth: Infinity,
+      fuse: null,
     }
   },
+
   created() {
     axios.get('https://randomuser.me/api/?results=40').then((response) => {
+      this.allUsers = response.data.results
       this.users = response.data.results
+      this.fuse = new Fuse(this.allUsers, {
+        keys: ['name.first', 'name.last', 'location.city'],
+        threshold: 0.3,
+      })
     })
   },
+
   methods: {
     tagUsers(index) {
       const updatedTags = this.tags
@@ -112,35 +93,23 @@ export default {
       this.tags = updatedTags
 
       axios.get('https://randomuser.me/api/?results=40').then((response) => {
+        this.allUsers = response.data.results
         this.users = response.data.results
       })
     },
     loadUsers() {
       axios.get('https://randomuser.me/api/?results=40').then((response) => {
-        this.users = [...this.users, ...response.data.results]
+        this.allUsers = [...this.allUsers, ...response.data.results]
+        this.users = [...this.allUsers, ...response.data.results]
       })
     },
-    onScrollLeft() {
-      this.$refs.tags.scrollLeft = this.scrollLeft - 200
-      this.scrollLeft = this.scrollLeft - 200 < 0 ? 0 : this.scrollLeft - 200
-    },
-
-    onScrollRight() {
-      this.maxScrollWidth =
-        this.$refs.tags.scrollWidth - this.$refs.tags.clientWidth
-
-      this.$refs.tags.scrollLeft = this.scrollLeft + 200
-      this.scrollLeft =
-        this.maxScrollWidth > this.scrollLeft + 200
-          ? this.scrollLeft + 200
-          : this.maxScrollWidth
+    searchUser(value) {
+      if (value === '') {
+        this.users = this.allUsers
+      } else {
+        this.users = this.fuse.search(value).map((user) => user.item)
+      }
     },
   },
 }
 </script>
-
-<style lang="css" module>
-.scrollSmooth {
-  scroll-behavior: smooth;
-}
-</style>
