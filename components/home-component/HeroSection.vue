@@ -4,7 +4,7 @@
   >
     <section
       :class="[
-        'text-white font-poppins font-bold w-full text-center mb-2 text-xl lg:mt-20',
+        'text-white font-poppins font-bold w-full text-center mb-2 text-xl',
         $style.heroText,
       ]"
     >
@@ -48,13 +48,15 @@ export default {
     font-size: 40px;
     line-height: 72px;
     width: 600px;
+    @apply mt-20;
   }
 
   .heroContainer::before {
     content: '';
     background-image: url('/assets/images/hero-bg.png');
     height: 380px;
-    @apply bg-contain bg-no-repeat bg-center w-full top-8 bottom-0 absolute;
+    top: 25px;
+    @apply bg-contain bg-no-repeat bg-center w-full bottom-0 absolute;
   }
 
   .animation {
