@@ -1,13 +1,10 @@
 <template>
   <main
-    :class="[
-      ' flex flex-col items-center relative mx-7 lg:mx-20 ',
-      $style.heroContainer,
-    ]"
+    :class="['flex flex-col items-center relative mx-7', $style.heroContainer]"
   >
     <section
       :class="[
-        'text-white font-poppins font-bold w-full text-center mt-14 text-xl lg:mt-20',
+        'text-white font-poppins font-bold w-full text-center mb-2 text-xl lg:mt-20',
         $style.heroText,
       ]"
     >
@@ -16,7 +13,7 @@
     </section>
 
     <lottie-player
-      :class="['mt-10 mb-3 w-full max-w-md', $style.animation]"
+      :class="['mt-6 w-full max-w-md', $style.animation]"
       src="https://assets8.lottiefiles.com/packages/lf20_u5nd9awf.json"
       background="transparent"
       speed="1"
@@ -33,7 +30,20 @@ export default {
 </script>
 
 <style lang="css" module>
+.heroText {
+  margin-top: 60px;
+}
+
+.animation {
+  height: 300px;
+}
+
 @screen lg {
+  .heroContainer {
+    margin-left: 72px;
+    margin-right: 72px;
+  }
+
   .heroText {
     font-size: 40px;
     line-height: 72px;
@@ -43,11 +53,13 @@ export default {
   .heroContainer::before {
     content: '';
     background-image: url('/assets/images/hero-bg.png');
-    @apply bg-contain bg-no-repeat w-full top-8 bottom-0 absolute;
+    height: 380px;
+    @apply bg-contain bg-no-repeat bg-center w-full top-8 bottom-0 absolute;
   }
 
   .animation {
-    width: 500px;
+    height: 420px;
+    width: 420px;
   }
 }
 </style>

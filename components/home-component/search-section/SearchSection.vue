@@ -2,13 +2,12 @@
   <div
     class="border-t border-secondary-200 flex flex-col items-center relative overflow-x-hidden"
   >
-    <search-bar @searchUser="searchUser" />
-
     <search-component :tags="tags" @tagUsers="tagUsers" />
 
     <section
       class="grid grid-cols-auto-fit-sm sm:grid-cols-auto-fit-lg lg:grid-cols-auto-fit-xl gap-5 w-full justify-center"
     >
+      <search-bar @searchUser="searchUser" />
       <user-card
         v-for="user in users"
         :key="user.login.uuid"
@@ -16,14 +15,18 @@
         :name="user.name.first + ' ' + user.name.last"
         :location="user.location.city"
       />
+      <section class="col-span-full text-center">
+        <button
+          :class="[
+            'font-poppins text-white border w-full border-white rounded mt-7 hover:text-secondary-100 hover:bg-white transition-all',
+            $style.btn,
+          ]"
+          @click="loadUsers"
+        >
+          Load more developers
+        </button>
+      </section>
     </section>
-
-    <button
-      class="font-poppins text-white border border-white w-80 py-2 rounded-lg mt-12 hover:text-secondary-100 hover:bg-white lg:w-auto lg:px-44"
-      @click="loadUsers"
-    >
-      Load more developers
-    </button>
   </div>
 </template>
 
@@ -113,3 +116,17 @@ export default {
   },
 }
 </script>
+
+<style lang="css" module>
+.btn {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  max-width: 300px;
+}
+
+@screen lg {
+  .btn {
+    max-width: 500px;
+  }
+}
+</style>

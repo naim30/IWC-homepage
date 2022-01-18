@@ -2,13 +2,13 @@
   <section
     ref="tags"
     :class="[
-      'flex overflow-x-scroll w-full scrollbar-hide my-9',
+      'flex overflow-x-scroll w-full scrollbar-hide mt-8 mb-9 lg:mt-9 lg:mb-10',
       $style.scrollSmooth,
     ]"
   >
     <button
       :class="[
-        'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -left-5 -mt-3 text-white hover:text-primary-100',
+        'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -left-6 -mt-3 text-white hover:text-primary-100',
         scrollLeft > 0 ? 'hidden sm:inline-block' : 'hidden',
       ]"
       @click="onScrollLeft"
@@ -18,7 +18,7 @@
 
     <button
       :class="[
-        'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -right-5 -mt-3 text-white hover:text-primary-100',
+        'h-16 w-16 rounded-full border border-secondary-300 bg-secondary-200 hover:bg-secondary-300 absolute -right-6 -mt-3 text-white hover:text-primary-100',
         scrollLeft < maxScrollWidth ? 'hidden sm:inline-block' : 'hidden',
       ]"
       @click="onScrollRight"
@@ -30,7 +30,8 @@
       v-for="(tag, i) in tags"
       :key="i"
       :class="[
-        'px-3 py-2 mx-2 whitespace-nowrap rounded-lg font-poppins border border-secondary-300 text-white',
+        'px-3 mx-2 whitespace-nowrap rounded-lg font-poppins border border-secondary-300 text-white',
+        $style.tags,
         tag.selected
           ? 'bg-primary-100 hover:bg-primary-100'
           : 'bg-secondary-200 hover:bg-secondary-300',
@@ -81,5 +82,9 @@ export default {
 <style lang="css" module>
 .scrollSmooth {
   scroll-behavior: smooth;
+}
+.tags {
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 </style>
