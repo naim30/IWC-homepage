@@ -1,19 +1,27 @@
 <template>
   <div class="w-full text-white bg-secondary-200 rounded-2xl">
-    <section class="w-full p-4">
-      <img class="w-full rounded-2xl" :src="imgurl" :alt="name" />
+    <section
+      :class="[
+        'm-4 mb-5 flex justify-center items-center overflow-hidden rounded-2xl',
+        $style.imageContainer,
+      ]"
+    >
+      <img
+        :class="['w-full transition-all', $style.image]"
+        :src="imgurl"
+        :alt="name"
+      />
     </section>
 
-    <h3 class="px-4 text-xl font-bold font-poppins mb-2">{{ name }}</h3>
+    <h3 class="px-5 text-xl font-bold font-poppins mb-3">{{ name }}</h3>
 
-    <p class="text-xs leading-5 text-secondary-400 px-4 pb-4 font-poppins">
+    <p class="text-xs leading-5 text-secondary-400 px-5 pb-5 font-poppins">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel fugiat
-      quod voluptate recusandae odio impedit ipsum dolor sit amet, consectetur
-      adipisicing elit.
+      quod voluptate recusandae odio impedit ipsum dolor sit amet.
     </p>
 
     <section
-      class="bg-secondary-300 w-full rounded-b-2xl flex justify-between items-center px-4 py-3"
+      class="bg-secondary-300 w-full rounded-b-2xl flex justify-between items-center px-5 py-3"
     >
       <div class="text-xs">
         <i class="fas fa-map-marker-alt text-sm mr-2"></i
@@ -24,7 +32,9 @@
         class="text-xs font-poppins py-2 px-3 bg-secondary-200 rounded-full"
       >
         View Profile
-        <i class="fas fa-chevron-right text-xs ml-2 hover:text-primary-100"></i>
+        <i
+          class="fas fa-chevron-right text-xs ml-2 transition-all hover:text-primary-100"
+        ></i>
       </button>
     </section>
   </div>
@@ -50,4 +60,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="css" module>
+.imageContainer {
+  height: 280px;
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
+</style>
