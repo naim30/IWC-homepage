@@ -13,7 +13,10 @@
     </section>
 
     <lottie-player
-      :class="['mt-6 w-full max-w-md', $style.animation]"
+      :class="[
+        'mt-6 w-full max-w-md h-[300px] lg:h-[420px] lg:w-[420px]',
+        $style.animation,
+      ]"
       src="https://assets8.lottiefiles.com/packages/lf20_u5nd9awf.json"
       background="transparent"
       speed="1"
@@ -34,9 +37,9 @@ export default {
   margin-top: 60px;
 }
 
-.animation {
+/* .animation {
   height: 300px;
-}
+} */
 
 @screen lg {
   .heroContainer {
@@ -59,9 +62,9 @@ export default {
     @apply bg-contain bg-no-repeat bg-center w-full bottom-0 absolute;
   }
 
-  .animation {
+  /* .animation {
     height: 420px;
     width: 420px;
-  }
+  } */
 }
 </style>

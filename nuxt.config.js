@@ -75,6 +75,13 @@ export default {
     baseURL: '/',
   },
 
+  tailwindcss: {
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    jit: true,
+    config: {},
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }
